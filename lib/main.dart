@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:wilma_store/module/app_module.dart';
 import 'package:wilma_store/screens/home/home.dart';
 import 'screens/home/pages/product_prices.dart';
 
@@ -9,7 +11,9 @@ import 'screens/home/pages/product_prices.dart';
   fontStyle: FontStyle.italic,
 );*/
 
-void main() => runApp(const MyApp());
+void main() {
+  return runApp(ModularApp(module: AppModule(), child: const MyApp()));
+}
 
 
 class MyApp extends StatelessWidget {
@@ -17,14 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      initialRoute: '/',
-      routes: {
+      // initialRoute: '/',
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
+      /*routes: {
         '/': (context) => const Home(title: 'Home'),
         '/product-prices': (context) => const ProductPrices()
-      },
+      },*/
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

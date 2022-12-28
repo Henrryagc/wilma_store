@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wilma_store/data/repository/ProductRepository.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:wilma_store/data/repository/product_repository.dart';
 import 'package:wilma_store/screens/home/pages/product_catalog/products/products.dart';
+import 'package:wilma_store/service/product_service.dart';
 
 class ProductCatalog extends StatefulWidget {
   const ProductCatalog({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class ProductCatalog extends StatefulWidget {
 
 class _ProductCatalogState extends State<ProductCatalog> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
+  final productService = Modular.get<ProductService>();
   @override
   void initState() {
     super.initState();
@@ -58,8 +60,12 @@ class _ProductCatalogState extends State<ProductCatalog> with SingleTickerProvid
           child: InkWell(
             onTap: () {
               debugPrint("Log Printed");
-              final productRepo = ProductRepository();
-              productRepo.insertProduct();
+              // final productRepo = ProductRepository();
+              // productRepo.insertProduct();
+
+               productService.insert();
+               productService.selectAll();
+
             },
             child: SizedBox(
               width: 180,

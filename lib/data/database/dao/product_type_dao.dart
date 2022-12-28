@@ -1,5 +1,6 @@
 import 'package:floor/floor.dart';
-import 'package:wilma_store/data/entity/product_type.dart';
+
+import 'package:wilma_store/data/database/entity/product_type.dart';
 
 abstract class ProductTypeDao {
   @Query('SELECT * FROM ProductType')

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wilma_store/data/entity/product.dart';
+import 'package:wilma_store/data/database/entity/product.dart';
 
 class Products extends StatefulWidget {
   const Products({Key? key}) : super(key: key);

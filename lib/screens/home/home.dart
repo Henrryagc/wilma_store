@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _currentIndex = 0;
-  static const routes = ['/','/product-prices', '', ''];
+
   List<Widget> pages = const [
     Text('eco', style: textStyle),
     Text('start', style: textStyle),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'db_wilma_store.dart';
+part of '../database/db_wilma_store.dart';
 
 // **************************************************************************
 // FloorGenerator
@@ -66,7 +66,7 @@ class _$DbWilmaStore extends DbWilmaStore {
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -82,7 +82,7 @@ class _$DbWilmaStore extends DbWilmaStore {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Product` (`id` INTEGER NOT NULL, `productName` TEXT NOT NULL, `created` TEXT NOT NULL, `iconPath` TEXT NOT NULL, `productTypeId` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Product` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `productName` TEXT NOT NULL, `created` TEXT NOT NULL, `iconPath` TEXT NOT NULL, `productTypeId` INTEGER NOT NULL)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ProductType` (`id` INTEGER NOT NULL, `productTypeName` TEXT NOT NULL, `created` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
@@ -98,6 +98,7 @@ class _$DbWilmaStore extends DbWilmaStore {
   }
 
   @override
+  // TODO: implement productTypeDao
   ProductTypeDao get productTypeDao => throw UnimplementedError();
 }
 
@@ -128,10 +129,9 @@ class _$ProductDao extends ProductDao {
   Future<List<Product>> findAllProducts() async {
     return _queryAdapter.queryList('SELECT * FROM Product',
         mapper: (Map<String, Object?> row) => Product(
-            created: row['created'] as String,
+            id: row['id'] as int?,
             iconPath: row['iconPath'] as String,
             productTypeId: row['productTypeId'] as int,
-            id: row['id'] as int,
             productName: row['productName'] as String));
   }
 
@@ -139,10 +139,9 @@ class _$ProductDao extends ProductDao {
   Stream<Product?> findProductById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM Person WHERE id = ?1',
         mapper: (Map<String, Object?> row) => Product(
-            created: row['created'] as String,
+            id: row['id'] as int?,
             iconPath: row['iconPath'] as String,
             productTypeId: row['productTypeId'] as int,
-            id: row['id'] as int,
             productName: row['productName'] as String),
         arguments: [id],
         queryableName: 'Product',
